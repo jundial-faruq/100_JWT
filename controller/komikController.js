@@ -33,6 +33,9 @@ async function createKomik(req, res) {
             author
         });
         res.status(201).json(newKomik);
+    } catch (err) {
+        console.error('Error creating komik:', err.message);
+        res.status(500).json({ error: 'Failed to create komik' });
     }
 }
 
@@ -47,5 +50,10 @@ async function updateKomik(req, res) {
         komik.title = title;
         komik.description = description;
         komik.author = author;
-        
+        await komik.save();
+        res.status(200).json(komik);
+    }catch (err) {
+        console.error('Error updating komik:', err.message);
+        res.status(500).json({ error: 'Failed to update komik' });
+    }
 }
