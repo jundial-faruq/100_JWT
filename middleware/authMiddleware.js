@@ -18,4 +18,10 @@ const authenticateToken = (req, res, next) => {
 
         req.user = decoded;
         next();
+
+    }catch (error) {
+        return res.status(403).json({ message: "Token tidak valid atau telah kadaluarsa." });
     }
+};
+
+module.exports = autMiddleware;
